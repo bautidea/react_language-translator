@@ -1,33 +1,77 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import { useReducer } from 'react';
+import { State, Action } from './types.d';
+
+const initialState: State = {
+  fromLanguage: 'auto',
+  toLanguage: 'en',
+  fromText: '',
+  result: '',
+  loading: false,
+};
+
+function reducer(state: State, action: Action) {
+  const { type } = action;
+
+  switch (type) {
+    case 'SWITCH_LANGUAGE': {
+      return {
+        ...state,
+        fromLanguage: state.toLanguage,
+        toLanguage: state.fromLanguage,
+      };
+    };
+
+    case 'SET_FROM_LANGUAGE': {
+      return {
+        ...state,
+        fromLanguage: action.payload
+      };
+    };
+
+    case 'SET_TO_LANGUAGE' : {
+      return {
+        ...state,
+        toLanguage: action.payload
+      };
+    };
+
+    case 'SET_FROM_TEXT' : {
+      return {
+        ...state,
+        loading: true,
+        fromText: action.payload
+      };
+    };
+
+    case 'SET_RESULT' : {
+      return {
+        ...state,
+        loading: false,
+        result: action.payload
+      };
+    };
+  }
+
+  return state;
+}
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
+  const { fromLanguage, toLanguage, fromText, result, loading } = state;
+
+  function handleClick () {
+    dispatch({
+      type : 'SET_FROM_LANGUAGE',
+      payload: 'espa'
+    })
+  }
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <h1>HI</h1>
+      <button onClick={handleClick}>Change Language {fromLanguage}</button>
     </>
   );
 }
