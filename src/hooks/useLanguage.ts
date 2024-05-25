@@ -1,5 +1,5 @@
 import { useReducer } from 'react';
-import { State, Action } from '../types.d';
+import { State, Action, Languages, FromLanguage } from '../types.d';
 
 const initialState: State = {
   fromLanguage: 'auto',
@@ -65,14 +65,14 @@ function useLanguages() {
     });
   }
 
-  function setFromLanguage(newFromLanguage: string) {
+  function setFromLanguage(newFromLanguage: FromLanguage) {
     dispatch({
       type: 'SET_FROM_LANGUAGE',
       payload: newFromLanguage,
     });
   }
 
-  function setToLanguage(newToLanguage: string) {
+  function setToLanguage(newToLanguage: Languages) {
     dispatch({
       type: 'SET_TO_LANGUAGE',
       payload: newToLanguage,
