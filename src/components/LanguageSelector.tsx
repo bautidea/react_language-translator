@@ -1,14 +1,15 @@
 import { Form } from "react-bootstrap"
 import { SUPPORTED_LANGUAGES } from "../constants"
 import { FunctionComponent } from "react"
+import { Languages } from "../types"
 
 interface Props {
-  onChange : (language : string) => void
+  onChange : (language : Languages) => void
 }
 
 const LanguageSelector : FunctionComponent<Props> = ({ onChange }) =>  {
   function handleChange (event: React.ChangeEvent<HTMLSelectElement>) {
-    onChange(event.target.value)
+    onChange(event.target.value as Languages)
   }
 
   return (
