@@ -1,19 +1,35 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import useLanguages from './hooks/useLanguage';
+import { Container, Row, Col, Button } from 'react-bootstrap';
+import { AUTO_LANGUAGE } from './constants';
+import { ArrowIcon } from './assets/ArrowIcon';
+import LanguageSelector from './components/LanguageSelector';
 
 function App() {
-  const { fromLanguage, setFromLanguage } = useLanguages();
-
-  function handleClick() {
-    setFromLanguage('ur');
-  }
+  const { fromLanguage, toLanguage, setFromLanguage, setToLanguage, switchLanguages } = useLanguages();
 
   return (
-    <>
-      <h1>HI</h1>
-      <button onClick={handleClick}>Change Language {fromLanguage}</button>
-    </>
+    <Container fluid>
+      <h1>Language Translator</h1>
+      
+      <Row>
+        <Col>
+          <LanguageSelector onChange={setFromLanguage}/>
+          {fromLanguage}
+        </Col>
+
+        <Col>
+          <Button variant='link' disabled={fromLanguage === AUTO_LANGUAGE} onClick={switchLanguages}>
+            <ArrowIcon/>
+          </Button>
+        </Col>
+
+        <Col>
+          <LanguageSelector onChange={setToLanguage}/>
+        </Col>
+      </Row>
+    </Container>
   );
 }
 
