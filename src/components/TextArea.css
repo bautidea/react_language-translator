@@ -1,0 +1,11 @@
+.commonStyles {
+    height: 200px;
+}
+
+.fromTextArea {
+    background-color: 'f5f5f5';
+}
+
+.resultTextArea { 
+    background-color: aquamarine;
+}
