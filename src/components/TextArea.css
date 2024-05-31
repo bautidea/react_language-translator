@@ -1,11 +1,15 @@
 .commonStyles {
-    height: 200px;
+  height: 200px;
+  border: 0;
+  resize: none;
+  font-size: 20px;
 }
 
 .fromTextArea {
-    background-color: 'f5f5f5';
+  box-shadow: -3px 3px 10px rgba(128, 128, 128, 0.403);
 }
 
 .resultTextArea { 
-    background-color: aquamarine;
+  background-color: #f5f5f5;
+  box-shadow: 3px 3px 10px rgba(128, 128, 128, 0.403);
 }

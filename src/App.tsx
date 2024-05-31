@@ -31,7 +31,7 @@ function App() {
           <Stack gap={2}>
             <LanguageSelector type= {SectionType.From} value= {fromLanguage} onChange={setFromLanguage}/>
 
-            <TextArea type={SectionType.From} value={fromText} loading={loading} onChange={setFromText}/>
+            <TextArea type={SectionType.From} value={fromText} onChange={setFromText}/>
           </Stack>
         </Col>
 
@@ -45,7 +45,7 @@ function App() {
           <Stack gap={2}>
             <LanguageSelector type={SectionType.To} value={toLanguage} onChange={setToLanguage}/>
             
-            <TextArea type={SectionType.To} value={result} onChange={setResult}/>
+            <TextArea type={SectionType.To} value={result} loading={loading} onChange={setResult}/>
           </Stack>
         </Col>
       </Row>
