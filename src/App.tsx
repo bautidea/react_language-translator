@@ -7,6 +7,7 @@ import { ArrowIcon } from './assets/ArrowIcon';
 import LanguageSelector from './components/LanguageSelector';
 import { SectionType } from './types.d';
 import TextArea from './components/TextArea';
+import { translate } from './services/translate';
 
 function App() {
   const { 
@@ -21,6 +22,10 @@ function App() {
     setFromText,
     setResult
   } = useLanguages();
+
+  const handleClick = async () => {
+    await translate({fromLanguage, toLanguage, textToTranslate: fromText})
+  }
 
   return (
     <Container fluid>
@@ -49,6 +54,8 @@ function App() {
           </Stack>
         </Col>
       </Row>
+
+      <button onClick={handleClick}>Translate</button>
     </Container>
   );
 }
