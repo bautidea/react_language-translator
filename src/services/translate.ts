@@ -13,6 +13,9 @@ const token = import.meta.env.VITE_COHERE_API_KEY
 const cohere = new CohereClient({ token })
 
 export async function translate ({ fromLanguage, toLanguage, textToTranslate } : Props) {
+  // If both languages are the same we return the same text to be translated.
+  if (fromLanguage === toLanguage) return textToTranslate;
+
   const fromLiteral = fromLanguage === 'auto' ? 'auto' : SUPPORTED_LANGUAGES[fromLanguage]
   const toLiteral = SUPPORTED_LANGUAGES[toLanguage]
   
@@ -22,16 +25,21 @@ export async function translate ({ fromLanguage, toLanguage, textToTranslate } :
                     should detect the language. The language to translate its surrounded by '[[' and ']]'.\
                     Input example {{originalLanguage / auto}} to [[languageToTranslate]]: textToBeTranslated"
   
-  const chatStream = await cohere.chatStream({
-    model:'command-r',
-    message: `{{${fromLiteral}}} to [[${toLiteral}]]: ${textToTranslate}`,
-    temperature: 0.3,
-    preamble: preamble
-  })
-
-  for await (const message of chatStream) {
-    if (message.eventType === 'text-generation') {
-      console.log(message);
+  try {
+    const chatStream = await cohere.chatStream({
+      model:'command-r',
+      message: `{{${fromLiteral}}} to [[${toLiteral}]]: ${textToTranslate}`,
+      temperature: 0.3,
+      preamble: preamble
+    })
+    
+    for await (const message of chatStream) {
+      if (message.eventType === 'stream-end') {
+        return message.response.text
+      }
     }
+  } catch (error) {
+    console.error(`Error during translation: ${error}`)
+    return "Translation failed."
   }
 }
