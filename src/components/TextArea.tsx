@@ -9,7 +9,11 @@ type Props = {
   onChange: ( text: string ) => void
 }
 
-function getPlaceholder ({type, loading}) {
+type placeholderProps = {
+  type : SectionType,
+  loading?: boolean
+}
+function getPlaceholder ({type, loading} : placeholderProps) {
   if (type === SectionType.From) return 'Enter Text ...'
   if (loading === true) return 'Translating...'
   return 'Translation'
@@ -27,11 +31,13 @@ function TextArea ({ type, value, loading, onChange } : Props) {
 
   return (
     <Form.Control 
-      as='textarea' placeholder={getPlaceholder({type, loading })} 
+      as='textarea' 
+      placeholder={getPlaceholder({type, loading })} 
       autoFocus={autoFocus} 
       className={`commonStyles ${typeClassName}`} 
       onChange={handleChange}
       disabled={disables}
+      value={value}
     />
   )
 }

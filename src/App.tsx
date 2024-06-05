@@ -8,6 +8,7 @@ import LanguageSelector from './components/LanguageSelector';
 import { SectionType } from './types.d';
 import TextArea from './components/TextArea';
 import { translate } from './services/translate';
+import { useEffect } from 'react';
 
 function App() {
   const { 
@@ -23,10 +24,21 @@ function App() {
     setResult
   } = useLanguages();
 
-  const handleClick = async () => {
-    await translate({fromLanguage, toLanguage, textToTranslate: fromText})
-  }
+  useEffect(() => {
+    if (fromText === '') return setResult('')
 
+    translate({fromLanguage, toLanguage, textToTranslate: fromText})
+      .then((translation) => {
+        if (translation == null) return
+
+        setResult(translation)
+      })
+      .catch(() => {
+        setResult('Error in translation')
+      })
+  }, [fromText])
+  
+  
   return (
     <Container fluid>
       <h1>Language Translator</h1>
@@ -54,8 +66,6 @@ function App() {
           </Stack>
         </Col>
       </Row>
-
-      <button onClick={handleClick}>Translate</button>
     </Container>
   );
 }
