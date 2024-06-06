@@ -36,9 +36,9 @@ function App() {
       .catch(() => {
         setResult('Error in translation')
       })
-  }, [fromText])
+  }, [fromLanguage, fromText, toLanguage])
   
-  
+  const switchButtonDisabled = fromLanguage === AUTO_LANGUAGE || (result === '' && fromText !== '')
   return (
     <Container fluid>
       <h1>Language Translator</h1>
@@ -53,7 +53,7 @@ function App() {
         </Col>
 
         <Col xs={1} >
-          <Button variant='link' disabled={fromLanguage === AUTO_LANGUAGE} onClick={switchLanguages}>
+          <Button variant='link' disabled={switchButtonDisabled} onClick={switchLanguages}>
             <ArrowIcon/>
           </Button>
         </Col>

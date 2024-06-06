@@ -19,29 +19,46 @@ function reducer(state: State, action: Action) {
 
       return {
         ...state,
+        result: '',
+        fromText: state.result,
         fromLanguage: state.toLanguage,
         toLanguage: state.fromLanguage,
       };
     }
 
     case 'SET_FROM_LANGUAGE': {
+      if (state.fromLanguage === action.payload) return state
+
+      const loading = state.fromText !== ''
+
       return {
         ...state,
+        loading,
+        result: '',
         fromLanguage: action.payload,
       };
     }
 
     case 'SET_TO_LANGUAGE': {
+      if (state.toLanguage === action.payload) return state
+
+      const loading = state.fromText !== ''
+
       return {
         ...state,
+        loading,
+        result: '',
         toLanguage: action.payload,
       };
     }
 
     case 'SET_FROM_TEXT': {
+      const loading = action.payload !== ''
+
       return {
         ...state,
-        loading: true,
+        loading,
+        result: '',
         fromText: action.payload,
       };
     }
