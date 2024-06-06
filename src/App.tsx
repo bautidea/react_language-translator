@@ -33,9 +33,6 @@ function App() {
 
         setResult(translation)
       })
-      .catch(() => {
-        setResult('Error in translation')
-      })
   }, [fromLanguage, fromText, toLanguage])
   
   const switchButtonDisabled = fromLanguage === AUTO_LANGUAGE || (result === '' && fromText !== '')
