@@ -3,7 +3,7 @@ import './App.css';
 import useLanguages from './hooks/useLanguage';
 import { Container, Row, Col, Button, Stack } from 'react-bootstrap';
 import { AUTO_LANGUAGE } from './constants';
-import { ArrowIcon } from './assets/ArrowIcon';
+import { ArrowIcon } from './assets/Icons';
 import LanguageSelector from './components/LanguageSelector';
 import { SectionType } from './types.d';
 import TextArea from './components/TextArea';
@@ -25,7 +25,7 @@ function App() {
     setResult
   } = useLanguages();
 
-  const debouncedFromText = useDebounce(fromText, 500)
+  const debouncedFromText = useDebounce(fromText, 300)
   
   useEffect(() => {
     if (debouncedFromText === '') return setResult('')

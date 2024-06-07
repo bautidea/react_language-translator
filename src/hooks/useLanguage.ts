@@ -17,12 +17,13 @@ function reducer(state: State, action: Action) {
     case 'SWITCH_LANGUAGE': {
       if (state.fromLanguage === AUTO_LANGUAGE) return state
 
+
       return {
-        ...state,
-        result: '',
-        fromText: state.result,
         fromLanguage: state.toLanguage,
         toLanguage: state.fromLanguage,
+        fromText: state.result,
+        result: '',
+        loading: true,
       };
     }
 

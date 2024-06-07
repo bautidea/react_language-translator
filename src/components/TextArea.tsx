@@ -1,5 +1,7 @@
-import { Form } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import { SectionType } from "../types.d";
+import { CopyTextIcon } from "../assets/Icons";
+
 import './TextArea.css'
 
 type Props = {
@@ -30,15 +32,25 @@ function TextArea ({ type, value, loading, onChange } : Props) {
   }
 
   return (
-    <Form.Control 
-      as='textarea' 
-      placeholder={getPlaceholder({type, loading })} 
-      autoFocus={autoFocus} 
-      className={`commonStyles ${typeClassName}`} 
-      onChange={handleChange}
-      disabled={disables}
-      value={value}
-    />
+    <div className={`${typeClassName}`} style={{'borderRadius' : '0.8rem'}}>
+      <Form.Control 
+        as='textarea' 
+        placeholder={getPlaceholder({type, loading })} 
+        autoFocus={autoFocus} 
+        className={`commonStyles`} 
+        onChange={handleChange}
+        disabled={disables}
+        value={value}
+      />
+
+      
+        <div className="buttonContainer">
+        {
+        type === SectionType.To && 
+          <Button className="button"> <CopyTextIcon /> </Button>
+          }
+        </div>
+    </div>
   )
 }
 
