@@ -9,6 +9,7 @@ import { SectionType } from './types.d';
 import TextArea from './components/TextArea';
 import { translate } from './services/translate';
 import { useEffect } from 'react';
+import { useDebounce } from './hooks/useDebounce';
 
 function App() {
   const { 
@@ -24,19 +25,21 @@ function App() {
     setResult
   } = useLanguages();
 
+  const debouncedFromText = useDebounce(fromText, 500)
+  
   useEffect(() => {
-    if (fromText === '') return setResult('')
+    if (debouncedFromText === '') return setResult('')
 
-    translate({fromLanguage, toLanguage, textToTranslate: fromText})
+    translate({fromLanguage, toLanguage, textToTranslate: debouncedFromText})
       .then((translation) => {
         if (translation == null) return
 
         setResult(translation)
       })
-  }, [fromLanguage, fromText, toLanguage])
+  }, [debouncedFromText, fromLanguage, toLanguage])
   
   const switchButtonDisabled = fromLanguage === AUTO_LANGUAGE || (result === '' && fromText !== '')
-  
+
   return (
     <Container fluid>
       <h1>Language Translator</h1>
