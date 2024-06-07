@@ -36,6 +36,7 @@ function App() {
   }, [fromLanguage, fromText, toLanguage])
   
   const switchButtonDisabled = fromLanguage === AUTO_LANGUAGE || (result === '' && fromText !== '')
+  
   return (
     <Container fluid>
       <h1>Language Translator</h1>
