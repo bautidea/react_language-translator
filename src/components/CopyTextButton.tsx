@@ -1,13 +1,13 @@
 import { Button, Overlay, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { CopyTextIcon } from '../assets/Icons';
-import './CopyTextButton.css';
 import { useRef, useState } from 'react';
 
 type Props = {
   valueToCopy: string;
+  buttonClassName: string;
 };
 
-const CopyText = ({ valueToCopy }: Props) => {
+const CopyText = ({ valueToCopy, buttonClassName }: Props) => {
   const [showTooltip, setShowTooltip] = useState(false);
   const targetButton = useRef(null);
 
@@ -24,13 +24,17 @@ const CopyText = ({ valueToCopy }: Props) => {
         placement="top"
         overlay={<Tooltip>Copy translation</Tooltip>}
       >
-        <Button className="button" onClick={handleCopy} ref={targetButton}>
+        <Button
+          className={buttonClassName}
+          onClick={handleCopy}
+          ref={targetButton}
+        >
           <CopyTextIcon />
         </Button>
       </OverlayTrigger>
 
       <Overlay placement="top" target={targetButton.current} show={showTooltip}>
-        <Tooltip className="tooltip">Translation copied!!</Tooltip>
+        <Tooltip>Translation copied!</Tooltip>
       </Overlay>
     </>
   );

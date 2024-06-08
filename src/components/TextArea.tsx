@@ -1,13 +1,15 @@
 import { Form } from 'react-bootstrap';
-import { SectionType } from '../types.d';
+import { FromLanguage, Languages, SectionType } from '../types.d';
 import './TextArea.css';
 import CopyTextButton from './CopyTextButton';
+import TextToAudioButton from './TextToAudioButton';
 
 type Props = {
   type: SectionType;
   value: string;
   loading?: boolean;
   onChange: (text: string) => void;
+  language: FromLanguage | Languages;
 };
 
 type placeholderProps = {
@@ -21,7 +23,7 @@ function getPlaceholder({ type, loading }: placeholderProps) {
   return 'Translation';
 }
 
-function TextArea({ type, value, loading, onChange }: Props) {
+function TextArea({ type, value, loading, onChange, language }: Props) {
   // Defining props based on type.
   const autoFocus = type === SectionType.From ? true : false;
   const typeClassName =
@@ -44,11 +46,19 @@ function TextArea({ type, value, loading, onChange }: Props) {
         value={value}
       />
 
-      <div className="buttonContainer">
-        {type === SectionType.To && value !== '' && (
-          <CopyTextButton valueToCopy={value} />
-        )}
-      </div>
+      {value !== '' && (
+        <div className="buttonContainer">
+          {type === SectionType.To && (
+            <CopyTextButton valueToCopy={value} buttonClassName="button" />
+          )}
+
+          <TextToAudioButton
+            valueToSpeak={value}
+            buttonClassName="button"
+            languageToSpeak={language}
+          />
+        </div>
+      )}
     </div>
   );
 }

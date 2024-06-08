@@ -12,58 +12,85 @@ import { useEffect } from 'react';
 import { useDebounce } from './hooks/useDebounce';
 
 function App() {
-  const { 
+  const {
     fromLanguage,
     toLanguage,
     fromText,
     result,
     loading,
-    switchLanguages, 
+    switchLanguages,
     setFromLanguage,
     setToLanguage,
     setFromText,
-    setResult
+    setResult,
   } = useLanguages();
 
-  const debouncedFromText = useDebounce(fromText, 300)
-  
+  const debouncedFromText = useDebounce(fromText, 300);
+
   useEffect(() => {
-    if (debouncedFromText === '') return setResult('')
+    if (debouncedFromText === '') return setResult('');
 
-    translate({fromLanguage, toLanguage, textToTranslate: debouncedFromText})
-      .then((translation) => {
-        if (translation == null) return
+    translate({
+      fromLanguage,
+      toLanguage,
+      textToTranslate: debouncedFromText,
+    }).then((translation) => {
+      if (translation == null) return;
 
-        setResult(translation)
-      })
-  }, [debouncedFromText, fromLanguage, toLanguage])
-  
-  const switchButtonDisabled = fromLanguage === AUTO_LANGUAGE || (result === '' && fromText !== '')
+      setResult(translation);
+    });
+  }, [debouncedFromText, fromLanguage, toLanguage]);
+
+  const switchButtonDisabled =
+    fromLanguage === AUTO_LANGUAGE || (result === '' && fromText !== '');
 
   return (
     <Container fluid>
       <h1>Language Translator</h1>
-      
-      <Row>
-        <Col >
-          <Stack gap={2}>
-            <LanguageSelector type= {SectionType.From} value= {fromLanguage} onChange={setFromLanguage}/>
 
-            <TextArea type={SectionType.From} value={fromText} onChange={setFromText}/>
+      <Row>
+        <Col>
+          <Stack gap={2}>
+            <LanguageSelector
+              type={SectionType.From}
+              value={fromLanguage}
+              onChange={setFromLanguage}
+            />
+
+            <TextArea
+              type={SectionType.From}
+              value={fromText}
+              onChange={setFromText}
+              language={fromLanguage}
+            />
           </Stack>
         </Col>
 
-        <Col xs={1} >
-          <Button variant='link' disabled={switchButtonDisabled} onClick={switchLanguages}>
-            <ArrowIcon/>
+        <Col xs={1}>
+          <Button
+            variant="link"
+            disabled={switchButtonDisabled}
+            onClick={switchLanguages}
+          >
+            <ArrowIcon />
           </Button>
         </Col>
 
-        <Col >
+        <Col>
           <Stack gap={2}>
-            <LanguageSelector type={SectionType.To} value={toLanguage} onChange={setToLanguage}/>
-            
-            <TextArea type={SectionType.To} value={result} loading={loading} onChange={setResult}/>
+            <LanguageSelector
+              type={SectionType.To}
+              value={toLanguage}
+              onChange={setToLanguage}
+            />
+
+            <TextArea
+              type={SectionType.To}
+              value={result}
+              loading={loading}
+              onChange={setResult}
+              language={toLanguage}
+            />
           </Stack>
         </Col>
       </Row>
