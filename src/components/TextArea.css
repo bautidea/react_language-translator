@@ -7,19 +7,10 @@
   background: transparent;
 }
 
-.commonStyles:focus{
+.commonStyles:focus {
   background: transparent;
   outline: none;
   box-shadow: none;
-}
-
-.buttonContainer {
-  background-color: red;
-  padding: 10px;
-  display: flex;
-  border-radius: 0 0 0.8rem 0.8rem;
-  background: transparent;
-  height: 60px;
 }
 
 .fromTextArea {
@@ -27,21 +18,15 @@
   background: rgb(244, 247, 244);
 }
 
-.resultTextArea { 
+.resultTextArea {
   box-shadow: 3px 3px 5px rgba(128, 128, 128, 0.403);
   background: rgb(234, 236, 239);
 }
 
-.button {
-  background-color: rgba(204, 207, 213, 0.724);
-  border: 0;
-  outline: 0;
-}
-
-.button:hover {
-  background-color: rgba(204, 207, 213, 0.564);
-}
-
-.button.button:active {
-  background-color: rgb(182, 184, 188);
+.buttonContainer {
+  padding: 10px;
+  display: flex;
+  border-radius: 0 0 0.8rem 0.8rem;
+  background: transparent;
+  height: 60px;
 }
