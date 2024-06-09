@@ -8,6 +8,8 @@ The app consist on two TextAreas, one serves as input and the other as output of
 
 Input language can be inferred by the LLM.
 
+Also added the features of coping the translated text, as well as the option for the navigator to read out loud what's in on the Text Areas.
+
 <div width='100%' align='center'>
 <img src='./src/assets/translator_img.png' height='auto' width='100%' />
 </div>
